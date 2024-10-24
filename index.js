@@ -18,7 +18,7 @@ const swaggerOptions = {
         openapi: "3.0.0",
         info: {
             title: "Monolithic Express.js User Authentication and Authorization API",
-            version: "1.0.0",
+            version: "1.0.1",
             description: "API documentation for a simple Express application that allows user registration, authentication and authorization.",
         },
         components: {
