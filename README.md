@@ -4,11 +4,7 @@
 
 This is a code demonstration of a Monolithic API application built with Express.js, where users can register, authenticate, and verify authorization levels. It includes Swagger API documentation for easy route exploration.
 
-## Deployment Disclaimer
-
-The API currently deployed at: <https://simple-monolithic-user-api-demo.onrender.com>, runs on a free web service on Render.com. Web services running on the free tier spins down after 15 minutes of inactivity, which may delay API responses by 90seconds (or even timed out) while the service boots up from a cold start.
-
-The Swagger UI documentation can be viewed and tested at: <https://simple-monolithic-user-api-demo.onrender.com/api-docs/>.
+The Swagger UI documentation can be viewed and tested at: <https://ronnmabunga-demo-apis.onrender.com/demo-api-2/api-docs/>.
 
 ## Features
 
@@ -88,9 +84,6 @@ Use these sample users to test the API:
     fs: File system module to handle data storage
     bcrypt: Encrypts user passwords
     jsonwebtoken: Generates and verifies JWT tokens
-
-## Dev Dependencies
-
     swagger-jsdoc: Generates Swagger documentation from JSDoc comments
     swagger-ui-express: Serves Swagger documentation via a web interface
 
