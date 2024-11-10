@@ -1,6 +1,7 @@
 {
     "scripts": {
-        "start": "node index.js"
+        "start": "node index.js",
+        "dev": "nodemon index.js"
     },
     "dependencies": {
         "bcrypt": "^5.1.1",
@@ -8,10 +9,16 @@
         "dotenv": "^16.4.5",
         "express": "^4.21.1",
         "fs": "^0.0.1-security",
-        "jsonwebtoken": "^9.0.2"
-    },
-    "devDependencies": {
+        "jsonwebtoken": "^9.0.2",
+        "ronnmabunga-demo-apis": "file:..",
         "swagger-jsdoc": "^6.2.8",
         "swagger-ui-express": "^5.0.1"
-    }
+    },
+    "name": "expressjs-fs-monolithic-user-api-demo",
+    "version": "1.0.0",
+    "description": "This is a code demonstration of a Monolithic API application built with Express.js, where users can register, authenticate, and verify authorization levels. It includes Swagger API documentation for easy route exploration.",
+    "main": "index.js",
+    "keywords": [],
+    "author": "",
+    "license": "ISC"
 }

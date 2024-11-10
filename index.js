@@ -7,10 +7,32 @@ const app = express();
 const cors = require("cors");
 require("dotenv").config();
 // Secrets
-const PORT = process.env.PORT || 4001;
-const JWT_SECRET = process.env.JWT_SECRET;
-const SERVER = process.env.SERVER || "http://localhost:4000";
-// DEV DEPENDENCIES
+const PORT = process.env.DEMO2_ORT || 4001;
+const JWT_SECRET = process.env.DEMO2_JWT_SECRET;
+const SERVER = process.env.DEMO2_SERVER || "http://localhost:4001";
+const DATA_FILE_PATH = process.env.DEMO2_DATA_FILE_PATH || "./usersData.json";
+const API_PATH = process.env.DEMO2_API_PATH || "./index.js";
+
+// Configuration to convert JSON payloads to JS objects
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+// CORS options configuration
+const corsOptions = {
+    origin: ["*"],
+    credentials: true,
+    optionsSuccessStatus: 200,
+};
+app.use(cors(corsOptions));
+// Error handling
+const errorHandler = async (error, req, res, next) => {
+    const statusCode = error.status || 500;
+    const errorMessage = error.message || "An unexpected error has occurred.";
+    console.error(JSON.stringify({ name: error.name, message: error.message, stack: error.stack, cause: error.cause, code: error.code, path: error.path, errno: error.errno, type: error.type }, null, 2));
+    if (res) {
+        res.status(statusCode).send({ error: errorMessage });
+    }
+};
+// Swagger Settings
 const swaggerJsDoc = require("swagger-jsdoc");
 const swaggerUi = require("swagger-ui-express");
 const swaggerOptions = {
@@ -36,33 +58,14 @@ const swaggerOptions = {
             },
         ],
     },
-    apis: ["./index.js"],
+    apis: [API_PATH],
 };
 const swaggerDocs = swaggerJsDoc(swaggerOptions);
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
-// Configuration to convert JSON payloads to JS objects
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-// CORS options configuration
-const corsOptions = {
-    origin: ["*"],
-    credentials: true,
-    optionsSuccessStatus: 200,
-};
-app.use(cors(corsOptions));
-// Error handling
-const errorHandler = async (error, req, res, next) => {
-    const statusCode = error.status || 500;
-    const errorMessage = error.message || "An unexpected error has occurred.";
-    console.error(JSON.stringify({ name: error.name, message: error.message, stack: error.stack, cause: error.cause, code: error.code, path: error.path, errno: error.errno, type: error.type }, null, 2));
-    if (res) {
-        res.status(statusCode).send({ error: errorMessage });
-    }
-};
 // Data Storage Functions
 const loadUsers = () => {
     try {
-        const data = fs.readFileSync("./usersData.json");
+        const data = fs.readFileSync(DATA_FILE_PATH);
         return JSON.parse(data);
     } catch (error) {
         console.error("Passed to error handler.");
@@ -591,8 +594,8 @@ app.get("/users/admins", decodeToken, validateAdmin, (req, res) => {
     res.status(200).send({ success: true, message: `Hello ${req.user.username}, welcome to the admin dashboard!` });
 });
 if (require.main === module) {
-    app.listen(PORT || 4005, () => {
-        console.log(`API is now online on port ${PORT || 4005}`);
+    app.listen(PORT || 4001, () => {
+        console.log(`API is now online on port ${PORT || 4001}`);
     });
 }
 module.exports = app;
