@@ -595,7 +595,7 @@ app.get("/users/admins", decodeToken, validateAdmin, (req, res) => {
 });
 if (require.main === module) {
     app.listen(PORT || 4001, () => {
-        console.log(`API is now online on port ${PORT || 4001}`);
+        console.log(`User API: Now online on port ${PORT || 4001}`);
     });
 }
 module.exports = app;
